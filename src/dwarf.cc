@@ -155,7 +155,9 @@ void respond(int n)
             {
 	                      if ( strncmp(reqline[1], "/\0", 2)==0 )
 		  reqline += "/index.html";
-		//                    reqline[1] = "/index.html";        //Because if no file is specified, index.html will be opened by default (like it happens in APACHE...
+		//                    reqline[1] = "/index.html"; 
+		// Because if no file is specified, index.html will be opened 
+		// by default (like it happens in APACHE...
 
                 strcpy(path, ROOT);
                 strcpy(&path[strlen(ROOT)], reqline[1]);
