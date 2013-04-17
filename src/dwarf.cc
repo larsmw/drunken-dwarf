@@ -134,7 +134,7 @@ void respond(int n)
 	for(str_iter = reqline.begin(); str_iter != reqline.end(); ++str_iter) {
 	  // Each line in the http-header
 	  cout << ctime(&reqTime) << *str_iter << endl;
-	  if(*str_iter.front() == "GET ") processGetRequest(str_iter);
+	  if(*str_iter.front() == "GET ") processGetRequest(str_iter.front());
 	  response = "<h1>HTTP 1.0 requested</h1>";
 	  //else response = *str_iter;
 	}
