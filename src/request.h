@@ -1,4 +1,12 @@
 #include <string>
 #include <list>
 
-std::list<std::string> tokenize(  std::string const& str,  char const token[]);
+using namespace std;
+
+list<string> tokenize(  string const& str,  char const token[]);
+
+/**
+   @return : The finished html
+   @param : GET request
+*/
+string processGetRequest(string strGet);

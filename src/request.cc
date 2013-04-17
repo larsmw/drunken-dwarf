@@ -1,14 +1,14 @@
 #include "request.h"
 
 
-std::list<std::string> tokenize(  std::string const& str,  char const token[])
+list<string> tokenize(  string const& str,  char const token[])
 {
-  std::list<std::string> results;
-  std::string::size_type j = 0;
+  list<string> results;
+  string::size_type j = 0;
   while (j < str.length())
   {
-    std::string::size_type k = str.find(token, j);
-    if (k == std::string::npos)
+    string::size_type k = str.find(token, j);
+    if (k == string::npos)
       k = str.length();
 
     results.push_back(str.substr(j, k-j));

@@ -124,19 +124,19 @@ void respond(int n)
 
 
     if (rcvd<0)    // receive error
-        fprintf(stderr,("recv() error\n"));
+      fprintf(stderr,("recv() error\n"));
     else if (rcvd==0)    // receive socket closed
-        fprintf(stderr,"Client disconnected upexpectedly.\n");
+      fprintf(stderr,"Client disconnected upexpectedly.\n");
     else    // message received
-    {
-      time_t reqTime = time(NULL);
+      {
+	time_t reqTime = time(NULL);
 	reqline = tokenize(mesg, " \t\n");
 	for(str_iter = reqline.begin(); str_iter != reqline.end(); ++str_iter) {
 	  // Each line in the http-header
 	  cout << ctime(&reqTime) << *str_iter << endl;
-	  //	  if(*str_iter.front() == "GET ")
-	    response = "<h1>HTTP 1.0 requested</h1>";
-	    //else response = *str_iter;
+	  if(*str_iter.front() == "GET ") processGetRequest(str_iter);
+	  response = "<h1>HTTP 1.0 requested</h1>";
+	  //else response = *str_iter;
 	}
 	final = "HTTP/1.0 200 OK \n\n";
 	cout << final << endl;
