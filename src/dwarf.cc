@@ -113,7 +113,7 @@ void respond(int n)
     char mesg[99999], data_to_send[BYTES], path[99999];
     int rcvd, fd, bytes_read;
 
-    string msg, response, final;
+    std::string msg, response, final;
     list<string> reqline;
     list<string>::iterator str_iter;
 
@@ -134,8 +134,10 @@ void respond(int n)
 	for(str_iter = reqline.begin(); str_iter != reqline.end(); ++str_iter) {
 	  // Each line in the http-header
 	  cout << ctime(&reqTime) << *str_iter << endl;
-	  if(*str_iter.find("GET "))
-	    processGetRequest(*str_iter);
+	  if(str_iter->find("GET ")) {
+	    //processGetRequest(*str_iter);
+	    cout << *str_iter << endl;
+	  }
 	  response = "<h1>HTTP 1.0 requested</h1>";
 	  //else response = *str_iter;
 	}
@@ -143,7 +145,7 @@ void respond(int n)
 	cout << final << endl;
 	//	send(clients[n], "HTTP/1.0 200 OK\n\n", 17, 0);
 	send(clients[n], final.c_str(), final.length(), 0);
-	write(clients[n] , response.c_str(), response.length());
+	write(clients[n], response.c_str(), response.length());
 	/*        if ( strncmp(reqline[0], "GET\0", 4)==0 )
         {
             reqline[1] = strtok (NULL, " \t");
