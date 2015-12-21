@@ -1,5 +1,6 @@
 #include "request.h"
 
+using namespace std;
 
 list<string> tokenize(  string const& str,  char const token[])
 {
@@ -15,4 +16,10 @@ list<string> tokenize(  string const& str,  char const token[])
     j = k + 1;
   }
   return results;
+}
+
+string processGetRequest(string strGet)
+{
+  cout << strGet << endl;
+  return "<html><title>Test</title><body><h2>jadaaa...</h2></html>";
 }

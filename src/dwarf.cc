@@ -111,11 +111,11 @@ void startServer(char *port)
 void respond(int n)
 {
     char mesg[99999], data_to_send[BYTES], path[99999];
-    int rcvd, fd, bytes_read;
+    int rcvd, fd, bytes_read, status;
 
     std::string msg, response, final;
     list<string> reqline;
-    list<string>::iterator str_iter;
+    list<string>::iterator str_iter, it;
 
 
     // mesg is set to the http request recieved from the client.
@@ -126,26 +126,29 @@ void respond(int n)
     if (rcvd<0)    // receive error
       fprintf(stderr,("recv() error\n"));
     else if (rcvd==0)    // receive socket closed
-      fprintf(stderr,"Client disconnected upexpectedly.\n");
+      fprintf(stderr,"Client closed connection.\n");
     else    // message received
       {
 	time_t reqTime = time(NULL);
-	reqline = tokenize(mesg, " \t\n");
+	cout << "req : " << mesg << endl << "req end" << endl;
+	reqline = tokenize(mesg, "\n");
 	for(str_iter = reqline.begin(); str_iter != reqline.end(); ++str_iter) {
 	  // Each line in the http-header
-	  cout << ctime(&reqTime) << *str_iter << endl;
-	  if(str_iter->find("GET ")) {
-	    //processGetRequest(*str_iter);
-	    cout << *str_iter << endl;
+	  std::string s;
+	  s = str_iter->c_str();
+	  cout << ctime(&reqTime) << s << endl;
+	  if(s.find("GET ")) {
+	    response = processGetRequest(*str_iter);
+	    //cout << *str_iter << endl;
+	  } else {
+	    response = *str_iter;
 	  }
-	  response = "<h1>HTTP 1.0 requested</h1>";
-	  //else response = *str_iter;
 	}
 	final = "HTTP/1.0 200 OK \n\n";
 	cout << final << endl;
 	//	send(clients[n], "HTTP/1.0 200 OK\n\n", 17, 0);
 	send(clients[n], final.c_str(), final.length(), 0);
-	write(clients[n], response.c_str(), response.length());
+	status = write(clients[n], response.c_str(), response.length());
 	/*        if ( strncmp(reqline[0], "GET\0", 4)==0 )
         {
             reqline[1] = strtok (NULL, " \t");
