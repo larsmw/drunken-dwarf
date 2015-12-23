@@ -1,6 +1,5 @@
-/*dwarf.h*/
-#ifndef __DWARF_W__
-#define __DWARF_W__
+#ifndef __SERVER_H__
+#define __SERVER_H__
 
 #include<stdio.h>
 #include<string.h>
@@ -13,21 +12,15 @@
 #include<netdb.h>
 #include<signal.h>
 #include<fcntl.h>
-#include<syslog.h>
 
 #include <iostream>
 #include <string>
 
-#include "request.h"
 
-using namespace std;
-
-#define CONNMAX 1000
-#define BYTES 1024
-
-string WEB_ROOT;
-int clients[CONNMAX];
-void error(string);
-void respond(int);
+class Server {
+  int listenfd;
+public:
+  void start(char *port, int &sockfd);
+};
 
 #endif
