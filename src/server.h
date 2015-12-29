@@ -12,15 +12,23 @@
 #include<netdb.h>
 #include<signal.h>
 #include<fcntl.h>
+#include<syslog.h>
 
 #include <iostream>
 #include <string>
+#include <list>
 
+using namespace std;
+
+#define BYTES 1024
 
 class Server {
   int listenfd;
+  list<string> tokenize(  string const& str,  char const token[]);
 public:
   void start(char *port, int &sockfd);
+  void respond(int client);
+  string processGetRequest(string strGet);
 };
 
 #endif

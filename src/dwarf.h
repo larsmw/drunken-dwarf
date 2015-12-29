@@ -23,10 +23,10 @@
 using namespace std;
 
 #define CONNMAX 1000
-#define BYTES 1024
 
 string WEB_ROOT;
 int clients[CONNMAX];
+
 void error(string);
 void respond(int);
 
